@@ -1,0 +1,22 @@
+.btn-primary{
+    background-color: #61c8fb;
+    border-color: #61c8fb;
+    display: flex;
+    align-items: center;
+    height: auto;
+    justify-content: center;
+    margin: 0 15px;
+    width: 200px;
+    margin-bottom: 10px;
+}
+
+.btn-primary:hover {
+    background-color: white;
+    color: #61c8fb;
+    border-color: #61c8fb;
+}
+
+.body{
+    min-height: 100vh;
+}
+
