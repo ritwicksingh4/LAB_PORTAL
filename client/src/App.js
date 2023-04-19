@@ -17,6 +17,15 @@ import ControllerCard from './components/ControllerCard'
 import ApplyforControllerDetails from './pages/ApplyforControllerDetails'
 import ApplyforMachine from './pages/ApplyforMachine'
 import ApplyforMachineDetails from './pages/ApplyforMachineDetails'
+import Payment from './pages/Payment'
+import AppointmentUser from './pages/appointmentuser'
+import AdminAppointments from './pages/appointmentadmin'
+import ApplicationDetails from './pages/ApplicationDetails'
+import CtrlAdminAppointments from './pages/ControllerRequests'
+import CtrlMachineAppointments from './pages/CtrlMachineAppointments'
+import CtrlApplicationDetails from './pages/CtrlApplicationDetails'
+import EditMachineOptions from './pages/EditMachineOptions'
+import Users from './pages/Users'
 
 function App() {
   const {loading} = useSelector(state => state.alerts);
@@ -59,6 +68,11 @@ function App() {
           }/>
           <Route path='/editmachine' element={
             <ProtectedRoute>
+              <EditMachineOptions/>
+            </ProtectedRoute>
+          }/>
+          <Route path='/controller/editmachine/:machineId' element={
+            <ProtectedRoute>
               <EditMachine/>
             </ProtectedRoute>
           }/>
@@ -90,6 +104,46 @@ function App() {
           <Route path='/machine/apply-for-machine/:machineId' element={
             <ProtectedRoute>
               <ApplyforMachineDetails/>
+            </ProtectedRoute>
+          }/>
+          <Route path='/payment/:machineId' element={
+            <ProtectedRoute>
+              <Payment/>
+            </ProtectedRoute>
+          }/>
+          <Route path='/user-appointments' element={
+            <ProtectedRoute>
+              <AppointmentUser/>
+            </ProtectedRoute>
+          }/>
+          <Route path='/admin/user-appointments' element={
+            <ProtectedRoute>
+              <AdminAppointments/>
+            </ProtectedRoute>
+          }/>
+          <Route path='/admin/applicationdetails/:applicationId' element={
+            <ProtectedRoute>
+              <ApplicationDetails/>
+            </ProtectedRoute>
+          }/>
+          <Route path='/admin/controller-appointments' element={
+            <ProtectedRoute>
+              <CtrlAdminAppointments/>
+            </ProtectedRoute>
+          }/>
+          <Route path='/controller/user-appointments' element={
+            <ProtectedRoute>
+              <CtrlMachineAppointments/>
+            </ProtectedRoute>
+          }/>
+          <Route path='/controller/applicationdetails/:applicationId' element={
+            <ProtectedRoute>
+              <CtrlApplicationDetails/>
+            </ProtectedRoute>
+          }/>
+          <Route path='/users' element={
+            <ProtectedRoute>
+              <Users/>
             </ProtectedRoute>
           }/>
         </Routes>

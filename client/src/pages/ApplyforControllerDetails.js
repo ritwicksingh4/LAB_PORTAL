@@ -1,7 +1,7 @@
 import React from 'react'
 import Layout from './../components/Layout'
 import '../styles/addmachine.css'
-import { Col, Form, Input, Row } from 'antd'
+import { Col, Form, Input, Row ,message} from 'antd'
 import { TodoWrapper } from '../components/sampledetails/TodoWrapper'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
@@ -26,6 +26,7 @@ const ApplyforControllerDetails = () => {
         dispatch(showLoading());
         const res = await axios.post("/api/v1/user/applyforcontroller",payload)
         dispatch(hideLoading());
+        message.success('Succesfully Applied for Controller')
       } catch (error) {
         dispatch(hideLoading());
         console.log(error);

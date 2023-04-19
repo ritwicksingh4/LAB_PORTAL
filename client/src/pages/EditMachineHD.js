@@ -44,7 +44,7 @@ useEffect(()=>{
 
     try {
       dispatch(showLoading());
-      const res = await axios.post('/api/v1/user/addmachine',payload);
+      const res = await axios.post('/api/v1/user/editmachine',payload);
       console.log(res,"res 44")
       dispatch(hideLoading());
       
