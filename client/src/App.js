@@ -17,85 +17,133 @@ import ControllerCard from './components/ControllerCard'
 import ApplyforControllerDetails from './pages/ApplyforControllerDetails'
 import ApplyforMachine from './pages/ApplyforMachine'
 import ApplyforMachineDetails from './pages/ApplyforMachineDetails'
+import ProfileSection from './pages/ProfileSection'
 
 function App() {
   const {loading} = useSelector(state => state.alerts);
   return (
-    <>
-      <BrowserRouter>
-      {loading ? (
-      <Spinner/>
-      ) : (
-        <Routes>
-          <Route path='/' element={
-            <ProtectedRoute>
-              <HomePage/>
-            </ProtectedRoute>
-          }/>
-          <Route path='/login' element={
-            <PublicRoute>
-              <Login/>
-            </PublicRoute>
-          }/>
-          <Route path='/register' element={
-            <PublicRoute>
-              <Register/>
-            </PublicRoute>
-          }/>
-          <Route path='/addmachine' element={
-            <ProtectedRoute>
-              <AddMachine/>
-            </ProtectedRoute>
-          }/>
-          <Route path='/addmachinesd' element={
-            <ProtectedRoute>
-              <AddMachineSD/>
-            </ProtectedRoute>
-          }/>
-          <Route path='/addmachinehd' element={
-            <ProtectedRoute>
-              <AddMachineHD/>
-            </ProtectedRoute>
-          }/>
-          <Route path='/editmachine' element={
-            <ProtectedRoute>
-              <EditMachine/>
-            </ProtectedRoute>
-          }/>
-          <Route path='/editmachinesd' element={
-            <ProtectedRoute>
-              <EditMachineSD/>
-            </ProtectedRoute>
-          }/>
-          <Route path='/editmachinehd' element={
-            <ProtectedRoute>
-              <EditMachineHD/>
-            </ProtectedRoute>
-          }/>
-          <Route path='/applyforcontroller' element={
-            <ProtectedRoute>
-              <ApplyforController/>
-            </ProtectedRoute>
-          }/>
-          <Route path='/machine/apply-for-controller/:machineId' element={
-            <ProtectedRoute>
-              <ApplyforControllerDetails/>
-            </ProtectedRoute>
-          }/>
-          <Route path='/applyformachine' element={
-            <ProtectedRoute>
-              <ApplyforMachine/>
-            </ProtectedRoute>
-          }/>
-          <Route path='/machine/apply-for-machine/:machineId' element={
-            <ProtectedRoute>
-              <ApplyforMachineDetails/>
-            </ProtectedRoute>
-          }/>
-        </Routes>
-      )}
-      </BrowserRouter>
-    </>
+      <>
+          <BrowserRouter>
+              {loading ? (
+                  <Spinner />
+              ) : (
+                  <Routes>
+                      <Route
+                          path="/"
+                          element={
+                              <ProtectedRoute>
+                                  <HomePage />
+                              </ProtectedRoute>
+                          }
+                      />
+                      <Route
+                          path="/login"
+                          element={
+                              <PublicRoute>
+                                  <Login />
+                              </PublicRoute>
+                          }
+                      />
+                      <Route
+                          path="/register"
+                          element={
+                              <PublicRoute>
+                                  <Register />
+                              </PublicRoute>
+                          }
+                      />
+                      <Route
+                          path="/addmachine"
+                          element={
+                              <ProtectedRoute>
+                                  <AddMachine />
+                              </ProtectedRoute>
+                          }
+                      />
+                      <Route
+                          path="/addmachinesd"
+                          element={
+                              <ProtectedRoute>
+                                  <AddMachineSD />
+                              </ProtectedRoute>
+                          }
+                      />
+                      <Route
+                          path="/addmachinehd"
+                          element={
+                              <ProtectedRoute>
+                                  <AddMachineHD />
+                              </ProtectedRoute>
+                          }
+                      />
+                      <Route
+                          path="/editmachine"
+                          element={
+                              <ProtectedRoute>
+                                  <EditMachine />
+                              </ProtectedRoute>
+                          }
+                      />
+                      <Route
+                          path="/editmachinesd"
+                          element={
+                              <ProtectedRoute>
+                                  <EditMachineSD />
+                              </ProtectedRoute>
+                          }
+                      />
+                      <Route
+                          path="/editmachinehd"
+                          element={
+                              <ProtectedRoute>
+                                  <EditMachineHD />
+                              </ProtectedRoute>
+                          }
+                      />
+                      <Route
+                          path="/applyforcontroller"
+                          element={
+                              <ProtectedRoute>
+                                  <ApplyforController />
+                              </ProtectedRoute>
+                          }
+                      />
+                      <Route
+                          path="/machine/apply-for-controller/:machineId"
+                          element={
+                              <ProtectedRoute>
+                                  <ApplyforControllerDetails />
+                              </ProtectedRoute>
+                          }
+                      />
+                      <Route
+                          path="/applyformachine"
+                          element={
+                              <ProtectedRoute>
+                                  <ApplyforMachine />
+                              </ProtectedRoute>
+                          }
+                      />
+                      <Route
+                          path="/machine/apply-for-machine/:machineId"
+                          element={
+                              <ProtectedRoute>
+                                  <ApplyforMachineDetails />
+                              </ProtectedRoute>
+                          }
+                      />
+                      <Route
+                          path="/profile"
+                          element={
+                              <ProtectedRoute>
+                                  <ProfileSection />
+                              </ProtectedRoute>
+                          }
+                      />
+                  </Routes>
+              )}
+          </BrowserRouter>
+      </>
   );
 }
 
