@@ -142,7 +142,7 @@ const ProfileSection = () => {
                                 </div>
                             </div>
                             <div className="change-password-btn">
-                                <button type="submit">Change Password</button>
+                                <button type="submit" className="btn btn-primary">Change Password</button>
                             </div>
                         </form>
                     </div>

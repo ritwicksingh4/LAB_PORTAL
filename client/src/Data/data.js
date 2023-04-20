@@ -6,7 +6,7 @@ export const userMenu = [
     },
     {
         name:'Appointments',
-        path:'/appointments',
+        path:'/user-appointments',
         icon:'fa-solid fa-list'
     },
     {
@@ -34,9 +34,14 @@ export const adminMenu = [
         icon:'fa-solid fa-house'
     },
     {
-        name:'All Machines',
-        path:'/getallmachine',
-        icon:'fa-solid fa-gear'
+        name:'Machine Appointments',
+        path:'/admin/user-appointments',
+        icon:'fa-solid fa-list'
+    },
+    {
+        name:'Controller Requests',
+        path:'/admin/controller-appointments',
+        icon:'fa-solid fa-desktop'
     },
     {
         name:'Add Machine',
@@ -63,7 +68,7 @@ export const controllerMenu = [
     },
     {
         name:'Appointments',
-        path:'/appointments',
+        path:'/controller/user-appointments',
         icon:'fa-solid fa-list'
     },
     {

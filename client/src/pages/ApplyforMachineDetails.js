@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import Layout from './../components/Layout'
 import '../styles/addmachine.css'
-import { Col, Form, Input, Row } from 'antd'
+import { Col, Form, Input, message, Row } from 'antd'
 import { TodoWrapper } from '../components/sampledetails/TodoWrapper'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { hideLoading, showLoading } from '../redux/features/alertSlice'
 import axios from 'axios'
+import { submitapm1 } from '../redux/features/applyMachineSlice'
 
 const ApplyforMachineDetails = () => {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ const ApplyforMachineDetails = () => {
   const dispatch = useDispatch();
   const User = useSelector((state)=>state.user)  
   const [sd,setsd] = useState([]);
+  // var sd = [];
 
   const machId = params.machineId
   console.log(machId)
@@ -21,20 +23,23 @@ const ApplyforMachineDetails = () => {
   const getSampleDetails = async()=>{
     try {
       const payload={machId}
-      dispatch(showLoading());
-      // const res = await axios.post("/api/v1/user/getsampledetails",payload)
-      dispatch(hideLoading());
+      // dispatch(showLoading());
+      const res = await axios.post("/api/v1/user/getsampledetails",payload)
+      // dispatch(hideLoading());
+      // sd=res.data.sds;
+      setsd(res.data.sds)
+      // console.log(sd);
       // setsd(res.sds)
     } catch (error) {
-      dispatch(hideLoading());
+      // dispatch(hideLoading());
       console.log(error);
     }
   }
 
+  
   useEffect(()=>{
     getSampleDetails();
   },[])
-  // getSampleDetails();
 
   const handleFinish = async(values)=>{
     // console.log(params.machineId);
@@ -42,19 +47,22 @@ const ApplyforMachineDetails = () => {
     const machId=params.machineId;
 
     const userID=User.user._id;
-    console.log(User.user);
+    // console.log(User.user);
     const payload = {...values,machId,userID};
-    console.log(payload);
+    // console.log(payload);
     try {
-        dispatch(showLoading());
-        const res = await axios.post("/api/v1/user/applyformachine",payload)
-        dispatch(hideLoading());
+      dispatch(showLoading());
+      const res = await axios.post("/api/v1/user/applyforsd",payload)
+      dispatch(hideLoading());
+      // console.log(res.data.data)
+      dispatch(submitapm1(res.data.data));
+      // message.success('Succesfully Applied for Machine')
       } catch (error) {
         dispatch(hideLoading());
         console.log(error);
       }
-
-    navigate('/');
+      
+    navigate(`/payment/${machId}`);
   }
 
   return (
@@ -132,8 +140,10 @@ const ApplyforMachineDetails = () => {
             </Col>
           </Row>
           <h5>Enter sample details</h5>
-          {/* {
+          {/* {console.log("here:",sd)} */}
+          {
             sd.map((item)=>{
+              {/* console.log("1") */}
               return (
                 <Row gutter={20}>
                   <Col xs={24} md={24} lg={8}>
@@ -144,9 +154,9 @@ const ApplyforMachineDetails = () => {
                 </Row>
               )
             })
-          } */}
+          }
           <div className='d-flex justify-content-center'>
-            <button className='btn btn-primary'>Apply</button>
+            <button className='btn btn-primary'>Next</button>
           </div>
         </Form>
     </Layout>

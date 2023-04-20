@@ -1,22 +1,48 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Layout from './../components/Layout'
 import '../styles/addmachine.css'
-import { Col, Form, Input, Row } from 'antd'
+import { Col, Form, Input, Row ,message} from 'antd'
 import { TodoWrapper } from '../components/sampledetails/TodoWrapper'
-import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useNavigate, useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import { submit1 } from '../redux/features/machineSlice'
+import axios from 'axios'
 
 const EditMachine = () => {
   //handle form
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const state = useSelector((state)=>state.machine)
+  const [mach,setMach] = useState(state.machine)
+  const params = useParams()
+  const machId=params.machineId;
 
-     ////work to be done 
+  const getAllData = async()=>{
+    try {
+      // dispatch(showLoading());
+      const res = await axios.post('/api/v1/user/getAllData',{machId});
+      // console.log(res,"res 44")
+      // dispatch(hideLoading());
+      console.log(res.data.data)
+      setMach(res.data.data)
+      mach && console.log(mach)
+    } catch (error) {
+      // dispatch(submit1());
+      // dispatch(hideLoading());
+      // navigate('/editmachine');
+      console.log(error);
+      message.error('Something went wrong');
+    }
+  }
+
+  useEffect(()=>{
+    getAllData();
+  },[])
 
   const handleFinish = (values)=>{
-    console.log(values);
-    dispatch(submit1(values));
+    const val = {...mach,billcharge1:(values.billcharge1 || mach.billcharge1),billcharge2:(values.billcharge2|| mach.billcharge2),billcharge3:(values.billcharge3|| mach.billcharge3)}
+    console.log(val);
+    dispatch(submit1(val));
     navigate('/editmachinesd');
   }
 
@@ -27,25 +53,25 @@ const EditMachine = () => {
             <h5>Machine Details :</h5>
           <Row gutter={20}>
             <Col xs={24} md={24} lg={8}>
-              <Form.Item label='Name' name='name' required rules={[{required:true}]}>
-                <Input type='text' placeholder='name of the machine' disabled={true}/>
+              <Form.Item label='Name' name='name' >
+                <Input type='text' placeholder={`${mach?.name}`} disabled={true} value={mach?.name}/>
               </Form.Item>
             </Col>
           </Row>
           <Row gutter={20}>
             <Col xs={24} md={24} lg={8}>
-              <Form.Item label='Type of machine' name='typeofmachine' required rules={[{required:true}]}>
-                <Input type='text' placeholder='Type of the machine' disabled={true}/>
+              <Form.Item label='Type of machine' name='typeofmachine' >
+                <Input type='text' placeholder={`${mach?.typeofmachine}`} disabled={true} value={mach?.typeofmachine}/>
               </Form.Item>
             </Col>
             <Col xs={24} md={24} lg={8}>
-              <Form.Item label='Type of equipment' name='typeofequip' required rules={[{required:true}]}>
-                <Input type='text' placeholder='Type of the equipment' disabled={true}/>
+              <Form.Item label='Type of equipment' name='typeofequip' >
+                <Input type='text' placeholder={`${mach?.typeofequip}`} disabled={true} value={mach?.typeofequip}/>
               </Form.Item>
             </Col>
             <Col xs={24} md={24} lg={8}>
-              <Form.Item label='Type of operation' name='typeofop' required rules={[{required:true}]}>
-                <Input type='text' placeholder='Type of the operation' disabled={true}/>
+              <Form.Item label='Type of operation' name='typeofop' >
+                <Input type='text' placeholder={`${mach?.typeofop}`} disabled={true} value={mach?.typeofop}/>
               </Form.Item>
             </Col>
           </Row>
@@ -58,18 +84,18 @@ const EditMachine = () => {
           </Row> */}
           <Row gutter={20}>
             <Col xs={24} md={24} lg={8}>
-              <Form.Item label='Bill Charge 1' name='billcharge1' required rules={[{required:true}]}>
-                <Input type='text' placeholder='bill charges for external user'/>
+              <Form.Item label='Bill Charge 1' name='billcharge1' >
+                <Input type='text' placeholder={`${mach?.billcharge1}`} value={mach?.billcharge1}/>
               </Form.Item>
             </Col>
             <Col xs={24} md={24} lg={8}>
-              <Form.Item label='Bill Charge 2' name='billcharge2' required rules={[{required:true}]}>
-                <Input type='text' placeholder='bill charges for internal user'/>
+              <Form.Item label='Bill Charge 2' name='billcharge2' >
+                <Input type='text' placeholder={`${mach?.billcharge2}`} value={mach?.billcharge2}/>
               </Form.Item>
             </Col>
             <Col xs={24} md={24} lg={8}>
-              <Form.Item label='Bill Charge3' name='billcharge3' required rules={[{required:true}]}>
-                <Input type='text' placeholder='bill charges for internal-AOH user'/>
+              <Form.Item label='Bill Charge3' name='billcharge3' >
+                <Input type='text' placeholder={`${mach?.billcharge3}`} value={mach?.billcharge3}/>
               </Form.Item>
             </Col>
           </Row>

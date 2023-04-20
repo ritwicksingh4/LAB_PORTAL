@@ -26,9 +26,8 @@ const userSchema = new mongoose.Schema({
         default:[]
     },
     machine:{
-        type: mongoose.Schema.ObjectId,
-        ref: 'machine',
-        default: null
+        type: Array,
+        default: []
     }
 });
 

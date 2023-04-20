@@ -69,14 +69,16 @@ button[type="submit"] {
     padding: 10px;
     background-color: #68ccfc;
     color: #fff;
-    border: none;
-    border-radius: 3px;
+    /* border: none; */
+    /* border-radius: 3px; */
     cursor: pointer;
 }
 
-button[type="submit"]:hover {
-    background-color: #389bf2;
-}
+/* button[type="submit"]:hover {
+    background-color: white;
+    border-color: #68ccfc;
+    color: #68ccfc;
+} */
 
 @media (max-width: 600px) {
     .profile-section {

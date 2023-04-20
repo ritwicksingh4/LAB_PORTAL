@@ -9,7 +9,7 @@
 
 .sidebar{
     min-height:auto;
-    width: 310px;
+    width: 340px;
     border-radius: 5px;
     background-color:#61c8fb;
     box-shadow: 0 0 2px gray;
@@ -104,4 +104,8 @@
     height: auto;
     justify-content: center;
     margin: 0 15px;
+}
+
+.Upload{
+    margin: 10px;
 }

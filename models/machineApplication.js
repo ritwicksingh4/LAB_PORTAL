@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const controllerApplicationSchema = new mongoose.Schema({
+const machineApplicationSchema = new mongoose.Schema({
     name:{
         type:String,
         required:[true,'name of the machine is required']
@@ -13,9 +13,37 @@ const controllerApplicationSchema = new mongoose.Schema({
         type:String,
         required:[true,'Designation is required']
     },
-    someotherproof:{
+    institution:{
         type:String,
-        required:[true,'Some other proof is required']
+        required:[true,'Institution name is required']
+    },
+    supervisor:{
+        type:String,
+        required:[true,'Supervisor name is required']
+    },
+    gst:{
+        type:String,
+        required:[true,'GST registration no. is required']
+    },
+    usertype:{
+        type:String,
+        required:[true,'type of the user is required']
+    },
+    date:{
+        type:String,
+        required:[true,'date of appointment is required']
+    },
+    from:{
+        type:String,
+        required:[true,'start time is required']
+    },
+    to:{
+        type:String,
+        required:[true,'end time is required']
+    },
+    sampledetails:{
+        type:Array,
+        default:[]
     },
     nameofthemachine:{
         type:String,
@@ -41,9 +69,9 @@ const controllerApplicationSchema = new mongoose.Schema({
         default:'pending'
     },
     machineId:{
-        type:String,
+        type:String
     }
 },{timestamps:true});
 
-const controllerApplicationModel = mongoose.model('controllerApplication',controllerApplicationSchema);
-module.exports = controllerApplicationModel;
+const machineApplicationModel = mongoose.model('machineApplication',machineApplicationSchema);
+module.exports = machineApplicationModel;
