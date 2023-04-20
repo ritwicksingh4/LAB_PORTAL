@@ -26,6 +26,7 @@ import CtrlMachineAppointments from './pages/CtrlMachineAppointments'
 import CtrlApplicationDetails from './pages/CtrlApplicationDetails'
 import EditMachineOptions from './pages/EditMachineOptions'
 import Users from './pages/Users'
+import ProfileSection from './pages/ProfileSection'
 
 function App() {
   const {loading} = useSelector(state => state.alerts);
@@ -146,6 +147,14 @@ function App() {
               <Users/>
             </ProtectedRoute>
           }/>
+          <Route
+            path="/profile"
+            element={
+                <ProtectedRoute>
+                    <ProfileSection />
+                </ProtectedRoute>
+            }
+          />
         </Routes>
       )}
       </BrowserRouter>

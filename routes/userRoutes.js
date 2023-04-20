@@ -1,6 +1,7 @@
 const express = require('express');
 const { addMachineController, getAllMachinesController, applyforController, getSampleDetails, applyForMachine, getbillamount, applyForSD, editMachineController } = require('../controllers/machineController');
-const { loginController, registerController, authController, userAppointmentsController, getAllAppsController, ApplicationsController, getAllData } = require('../controllers/userController');
+const { loginController, registerController, authController, userAppointmentsController, getAllAppsController, ApplicationsController, getAllData ,checkPasswordController,
+    changePasswordController,} = require('../controllers/userController');
 const authMiddleware = require('../middlewares/authMiddleware');
 
 //router object
@@ -26,7 +27,13 @@ router.post('/getAllMachines',getAllMachinesController)
 router.post('/applyforcontroller',applyforController)
 
 //POST
-router.post('/getsampledetails',getSampleDetails)
+router.post("/checkpassword", checkPasswordController);
+
+//POST
+router.post("/changepassword", changePasswordController);
+
+//GET
+router.post('/getsampledetails',getSampleDetails);
 
 //POST
 router.post('/applyforsd',applyForSD)
