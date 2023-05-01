@@ -1,5 +1,18 @@
 const express = require('express');
-const { addMachineController, getAllMachinesController, applyforController, getSampleDetails, applyForMachine, getbillamount, applyForSD, editMachineController } = require('../controllers/machineController');
+const {
+    addMachineController,
+    getAllMachinesController,
+    applyforController,
+    getSampleDetails,
+    getMachinesByTypeController,
+    applyForMachine,
+    getbillamount,
+    applyForSD,
+    editMachineController,
+    getUniqueTypesController,
+    getMachinesByEquipController,
+    getMachinesByOpController,
+} = require("../controllers/machineController");
 const { loginController, registerController, authController, userAppointmentsController, getAllAppsController, ApplicationsController, getAllData ,checkPasswordController,
     changePasswordController,} = require('../controllers/userController');
 const authMiddleware = require('../middlewares/authMiddleware');
@@ -31,6 +44,18 @@ router.post("/checkpassword", checkPasswordController);
 
 //POST
 router.post("/changepassword", changePasswordController);
+
+//POST
+router.post("/getuniquetypes",getUniqueTypesController);
+
+//POST
+router.post("/getmachinesbytype", getMachinesByTypeController);
+
+//POST
+router.post("/getmachinesbyequip", getMachinesByEquipController);
+
+//POST
+router.post("/getmachinesbyop", getMachinesByOpController);
 
 //GET
 router.post('/getsampledetails',getSampleDetails);
