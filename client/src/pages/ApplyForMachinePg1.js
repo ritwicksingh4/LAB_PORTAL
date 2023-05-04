@@ -3,7 +3,7 @@ import axios from "axios";
 import Layout from "./../components/Layout";
 import SmallCard1 from "../components/SmallCard1";
 
-const HomePage = () => {
+const ApplyForMachinePg1 = () => {
     const [machines, setMachines] = useState([]);
     // login user data
     const getUserData = async () => {
@@ -46,4 +46,4 @@ const HomePage = () => {
     );
 };
 
-export default HomePage;
+export default ApplyForMachinePg1;

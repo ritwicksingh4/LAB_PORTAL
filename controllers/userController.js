@@ -235,7 +235,7 @@ const userAppointmentsController = async (req, res) => {
         //   Apps.push(x[0])
         //   console.log(Apps,"apps")
         // })   
-        // console.log(req.body.machines)
+        console.log(req.body.machines)
         for(var item of req.body.machines){
           var x = await applyMachineModel.find({machineId:item})
           // print(item)
