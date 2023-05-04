@@ -31,6 +31,7 @@ import TypeofEquipment from "./pages/TypeofEquipment";
 import TypeofOperation from "./pages/TypeofOperation";
 import MultipleMachine from "./pages/MultipleMachine";
 import BookAppointment from "./pages/BookAppointment";
+import ApplyForMachinePg1 from "./pages/ApplyForMachinePg1";
 
 function App() {
     const { loading } = useSelector((state) => state.alerts);
@@ -165,7 +166,7 @@ function App() {
                             path="/applyformachine"
                             element={
                                 <ProtectedRoute>
-                                    <ApplyforMachine />
+                                    <ApplyForMachinePg1 />
                                 </ProtectedRoute>
                             }
                         />

@@ -11,7 +11,9 @@ const {
     editMachineController,
     getUniqueTypesController,
     getMachinesByEquipController,
+    getMachineByIdController,
     getMachinesByOpController,
+    bookingAvailabilityController,
 } = require("../controllers/machineController");
 const { loginController, registerController, authController, userAppointmentsController, getAllAppsController, ApplicationsController, getAllData ,checkPasswordController,
     changePasswordController,} = require('../controllers/userController');
@@ -35,6 +37,9 @@ router.post('/addmachine',addMachineController)
 
 //POST
 router.post('/getAllMachines',getAllMachinesController)
+
+//POST
+router.post("/getmachinebyid", getMachineByIdController);
 
 //POST
 router.post('/applyforcontroller',applyforController)
@@ -77,6 +82,9 @@ router.get("/getAllApps", authMiddleware, getAllAppsController);
 
 //POST getalldata
 router.post('/getAllData',getAllData)
+
+//POST getalldata
+router.post("/booking-availbility", bookingAvailabilityController);
 
 //POST editmachine
 //POST

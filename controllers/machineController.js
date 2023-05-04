@@ -1,7 +1,8 @@
 const machineModel = require("../models/machineModels");
 const applyControllerModel = require("../models/controllerApplicationModels");
 const applyMachineModel = require("../models/machineApplication");
-
+const machineApplicationModel = require("../models/machineApplication");
+const moment = require("moment");
 
 const addMachineController = async (req, res) => {
     try {
@@ -131,7 +132,6 @@ const getUniqueTypesController = async (req, res) => {
 
 const getMachinesByTypeController = async (req, res) => {
     try {
-        
         const type = req.body.body.type;
         const machines = await machineModel
             .distinct("typeofequip", { typeofmachine: type })
@@ -184,7 +184,7 @@ const getMachinesByOpController = async (req, res) => {
         const equip = req.body.body.equiptype;
         const op = req.body.body.optype;
 
-        console.log(type, equip,op);
+        console.log(type, equip, op);
         const machines = await machineModel.find({
             typeofmachine: type,
             typeofequip: equip,
@@ -202,6 +202,29 @@ const getMachinesByOpController = async (req, res) => {
             success: false,
             error,
             message: `Error while fetching machines with typeofmachine ${type}`,
+        });
+    }
+};
+
+const getMachineByIdController = async (req, res) => {
+    try {
+        const machineId = req.body.body.machineId;
+
+        const machines = await machineModel.find({
+            _id: machineId,
+        });
+
+        res.status(200).send({
+            success: true,
+            message: `Machine with id fetched successfully`,
+            data: machines,
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            success: false,
+            error,
+            message: `Error while fetching machines with id `,
         });
     }
 };
@@ -404,6 +427,43 @@ const editMachineController = async (req, res) => {
     }
 };
 
+const bookingAvailabilityController = async (req, res) => {
+    try {
+        const date = moment(req.body.date, "DD-MM-YY").toISOString();
+        const fromTime = moment(req.body.time, "HH:mm")
+            .subtract(1, "hours")
+            .toISOString();
+        const toTime = moment(req.body.time, "HH:mm")
+            .add(1, "hours")
+            .toISOString();
+        const machineId = req.body.machineId;
+        const appointments = await machineApplicationModel.find({
+            machineId,
+            date,
+            from: { $gte: fromTime },
+            to: { $lte: toTime },
+        });
+        if (appointments.length > 0) {
+            return res.status(200).send({
+                message: "Appointments not Availibale at this time",
+                success: true,
+            });
+        } else {
+            return res.status(200).send({
+                success: true,
+                message: "Appointments available",
+            });
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            success: false,
+            error,
+            message: "Error In Booking",
+        });
+    }
+};
+
 module.exports = {
     addMachineController,
     getAllMachinesController,
@@ -417,4 +477,6 @@ module.exports = {
     getMachinesByTypeController,
     getMachinesByEquipController,
     getMachinesByOpController,
+    getMachineByIdController,
+    bookingAvailabilityController,
 };
