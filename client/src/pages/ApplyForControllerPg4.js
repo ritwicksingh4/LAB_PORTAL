@@ -3,9 +3,9 @@ import axios from "axios";
 import Layout from "../components/Layout";
 import Card from "../components/Card";
 import { useParams } from "react-router-dom";
-import ApplyForMachineCard3 from "../components/ApplyforMachineCard3";
+import ApplyForControllerCard3 from "../components/ApplyforControllerCard3";
 
-const ApplyForMachinePg4 = ({ machinetypes }) => {
+const ApplyForControllerPg4 = ({ machinetypes }) => {
     const [Equipments, setEquipments] = useState([]);
 
     const { machineType, equipType, opType } = useParams();
@@ -42,7 +42,7 @@ const ApplyForMachinePg4 = ({ machinetypes }) => {
                     {console.log(Equipments)}
                     <div>
                         {Equipments.map((machine) => (
-                            <ApplyForMachineCard3 machine={machine} />
+                            <ApplyForControllerCard3 machine={machine} />
                         ))}
                     </div>
                 </div>
@@ -51,4 +51,4 @@ const ApplyForMachinePg4 = ({ machinetypes }) => {
     );
 };
 
-export default ApplyForMachinePg4;
+export default ApplyForControllerPg4;

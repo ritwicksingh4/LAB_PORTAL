@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Layout from "../components/Layout";
-import Card from "../components/Card";
+import SmallCard from "../components/SmallCard";
+import { Row } from "antd";
 import { useParams } from "react-router-dom";
-import ApplyForMachineCard3 from "../components/ApplyforMachineCard3";
+import ApplyForControllerCard1 from "../components/ApplyforControllerCard1";
 
-const ApplyForMachinePg4 = ({ machinetypes }) => {
+const ApplyForControllerPg2 = () => {
     const [Equipments, setEquipments] = useState([]);
 
-    const { machineType, equipType, opType } = useParams();
+    const { machineType } = useParams();
+    // console.log(machineType);
     const getUserData = async () => {
         try {
-            const res = await axios.post("/api/v1/user/getmachinesbyop", {
+            const res = await axios.post("/api/v1/user/getmachinesbytype", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -19,8 +21,6 @@ const ApplyForMachinePg4 = ({ machinetypes }) => {
                 },
                 body: {
                     type: machineType,
-                    equiptype: equipType,
-                    optype: opType,
                 },
             });
 
@@ -38,11 +38,15 @@ const ApplyForMachinePg4 = ({ machinetypes }) => {
         <Layout>
             <h1 className="text-center">Machines</h1>
             <div className="text-center pt-5">
+                <h5 className="pb-3">Type of Equipments</h5>
                 <div className="card-box">
                     {console.log(Equipments)}
                     <div>
                         {Equipments.map((machine) => (
-                            <ApplyForMachineCard3 machine={machine} />
+                            <ApplyForControllerCard1
+                                machineType={machineType}
+                                equipType={machine}
+                            />
                         ))}
                     </div>
                 </div>
@@ -51,4 +55,4 @@ const ApplyForMachinePg4 = ({ machinetypes }) => {
     );
 };
 
-export default ApplyForMachinePg4;
+export default ApplyForControllerPg2;
