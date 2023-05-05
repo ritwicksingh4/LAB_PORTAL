@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Layout from "../components/Layout";
 import SmallCardOperation from "../components/SmallCardOperation";
-import { Row } from "antd";
 import {useParams} from "react-router-dom";
 
 const TypeofOperation = ({ machinetypes }) => {

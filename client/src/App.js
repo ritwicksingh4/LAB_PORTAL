@@ -32,6 +32,13 @@ import TypeofOperation from "./pages/TypeofOperation";
 import MultipleMachine from "./pages/MultipleMachine";
 import BookAppointment from "./pages/BookAppointment";
 import ApplyForMachinePg1 from "./pages/ApplyForMachinePg1";
+import ApplyForMachinePg2 from "./pages/ApplyForMachinePg2";
+import ApplyForMachinePg3 from "./pages/ApplyForMachinePg3";
+import ApplyForMachinePg4 from "./pages/ApplyForMachinePg4";
+import ApplyForControllerPg1 from "./pages/ApplyForControllerPg1";
+import ApplyForControllerPg2 from "./pages/ApplyForControllerPg2";
+import ApplyForControllerPg3 from "./pages/ApplyForControllerPg3";
+import ApplyForControllerPg4 from "./pages/ApplyForControllerPg4";
 
 function App() {
     const { loading } = useSelector((state) => state.alerts);
@@ -150,7 +157,31 @@ function App() {
                             path="/applyforcontroller"
                             element={
                                 <ProtectedRoute>
-                                    <ApplyforController />
+                                    <ApplyForControllerPg1 />
+                                </ProtectedRoute>
+                            }
+                        />
+                        <Route
+                            path="/applyforcontroller/:machineType"
+                            element={
+                                <ProtectedRoute>
+                                    <ApplyForControllerPg2 />
+                                </ProtectedRoute>
+                            }
+                        />
+                        <Route
+                            path="/applyforcontroller/:machineType/:equipType"
+                            element={
+                                <ProtectedRoute>
+                                    <ApplyForControllerPg3 />
+                                </ProtectedRoute>
+                            }
+                        />
+                        <Route
+                            path="/applyforcontroller/:machineType/:equipType/:opType"
+                            element={
+                                <ProtectedRoute>
+                                    <ApplyForControllerPg4 />
                                 </ProtectedRoute>
                             }
                         />
@@ -167,6 +198,30 @@ function App() {
                             element={
                                 <ProtectedRoute>
                                     <ApplyForMachinePg1 />
+                                </ProtectedRoute>
+                            }
+                        />
+                        <Route
+                            path="/applyformachine/:machineType"
+                            element={
+                                <ProtectedRoute>
+                                    <ApplyForMachinePg2 />
+                                </ProtectedRoute>
+                            }
+                        />
+                        <Route
+                            path="/applyformachine/:machineType/:equipType"
+                            element={
+                                <ProtectedRoute>
+                                    <ApplyForMachinePg3 />
+                                </ProtectedRoute>
+                            }
+                        />
+                        <Route
+                            path="/applyformachine/:machineType/:equipType/:opType"
+                            element={
+                                <ProtectedRoute>
+                                    <ApplyForMachinePg4 />
                                 </ProtectedRoute>
                             }
                         />

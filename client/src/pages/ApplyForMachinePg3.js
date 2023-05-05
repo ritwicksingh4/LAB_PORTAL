@@ -4,6 +4,8 @@ import Layout from "../components/Layout";
 import SmallCardOperation from "../components/SmallCardOperation";
 import { Row } from "antd";
 import { useParams } from "react-router-dom";
+import ApplyForMachineCard3 from "../components/ApplyforMachineCard3";
+import ApplyForMachineCard2 from "../components/ApplyforMachineCard2";
 
 const ApplyForMachinePg3 = ({ machinetypes }) => {
     const [Equipments, setEquipments] = useState([]);
@@ -42,7 +44,7 @@ const ApplyForMachinePg3 = ({ machinetypes }) => {
                     {console.log(Equipments)}
                     <div>
                         {Equipments.map((machine) => (
-                            <SmallCardOperation
+                            <ApplyForMachineCard2
                                 machineType={machineType}
                                 equipType={equipType}
                                 opType={machine}

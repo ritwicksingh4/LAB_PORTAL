@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Layout from "./../components/Layout";
-import ApplyForMachineCard from "../components/ApplyforMachineCard";
+import Layout from "../components/Layout";
+import ApplyForControllerCard from "../components/ApplyforControllerCard";
 
-const ApplyForMachinePg1 = () => {
+const ApplyForControllerPg1 = () => {
     const [machines, setMachines] = useState([]);
     // login user data
     const getUserData = async () => {
@@ -37,7 +37,7 @@ const ApplyForMachinePg1 = () => {
                 <div className="card-box">
                     <div>
                         {machines.map((machinetypes) => (
-                            <ApplyForMachineCard machineType={machinetypes} />
+                            <ApplyForControllerCard machineType={machinetypes} />
                         ))}
                     </div>
                 </div>
@@ -46,4 +46,4 @@ const ApplyForMachinePg1 = () => {
     );
 };
 
-export default ApplyForMachinePg1;
+export default ApplyForControllerPg1;
