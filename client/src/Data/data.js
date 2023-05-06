@@ -49,6 +49,11 @@ export const adminMenu = [
         icon:'fa-solid fa-plus'
     },
     {
+        name:'Edit Machine',
+        path:'/editmachine',
+        icon:'fa-solid fa-wrench'
+    },
+    {
         name:'Users',
         path:'/users',
         icon:'fa-solid fa-user'

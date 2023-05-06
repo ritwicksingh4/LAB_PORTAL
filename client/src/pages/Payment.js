@@ -23,6 +23,7 @@ const Payment = () => {
   const [hr,sethr] = useState(0);
   const [gt,setgt] = useState(0);
   const [tpr,settpr] = useState(0);
+  const [file,setFile] = useState('');
   // var sd = [];
 
   const machId = params.machineId
@@ -120,6 +121,7 @@ const Payment = () => {
   onChange(info) {
     if (info.file.status !== 'uploading') {
       console.log(info.file, info.fileList);
+      setFile(info.file);
     }
     if (info.file.status === 'done') {
       message.success(`${info.file.name} file uploaded successfully`);

@@ -313,7 +313,7 @@ const userAppointmentsController = async (req, res) => {
       //   console.log(Apps,"apps")
       // })   
       // console.log(req.body.machines)
-      for(var item of req.body.mach){
+      for(var item of req.body.mach || []){
         var x = await machineModel.find({_id:item})
         // print(item)
         // console.log(item,"item")

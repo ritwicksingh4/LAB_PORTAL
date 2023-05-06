@@ -1,6 +1,7 @@
 const machineModel = require('../models/machineModels');
 const applyControllerModel = require('../models/controllerApplicationModels');
 const applyMachineModel = require('../models/machineApplication');
+const userModel = require('../models/userModels')
 
 
 const addMachineController = async(req,res) =>{
@@ -13,6 +14,13 @@ const addMachineController = async(req,res) =>{
         // console.log(req.body);
         const newMachine = new machineModel(req.body);
         await newMachine.save();
+        // const upmach = req.body.machine;
+        // console.log(upmach);
+        // upmach.push(newMachine._id)
+        const user = await userModel.findOne({_id:req.body.userId})
+        console.log(user)
+        user.machine.push(newMachine._id)
+        await user.save()
 
         res.status(201).send({
             message:'Machine Registered Successfully',

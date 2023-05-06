@@ -34,6 +34,8 @@ const CtrlAdminAppointments = () => {
         // setApp(res.data.data)
         message.success('status changed successfully')
         navigate('/')
+        // this.forceUpdate()
+        // window.location.reload()
     } catch (error) {
         console.log(error)
     }
