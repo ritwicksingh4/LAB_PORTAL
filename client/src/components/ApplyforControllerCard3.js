@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const DisplayCard = ({ machine }) => {
+const ApplyForControllerCard3 = ({ machine }) => {
     const navigate = useNavigate();
     return (
         <>
@@ -9,7 +9,7 @@ const DisplayCard = ({ machine }) => {
                 className="card m-2"
                 style={{ cursor: "pointer" }}
                 onClick={() =>
-                    navigate(`/machine/book-appointment/${machine._id}`)
+                    navigate(`/machine/apply-for-controller/${machine._id}`)
                 }
             >
                 <div className="card-header">{machine.name.toUpperCase()}</div>
@@ -29,4 +29,4 @@ const DisplayCard = ({ machine }) => {
     );
 };
 
-export default DisplayCard;
+export default ApplyForControllerCard3;
