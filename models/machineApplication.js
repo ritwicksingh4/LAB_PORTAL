@@ -71,10 +71,10 @@ const machineApplicationSchema = new mongoose.Schema({
     machineId:{
         type:String
     },
-    img:
+    photo:
     {
-        data: Buffer,
-        contentType: String
+        type:String,
+        default:''
     }
 },{timestamps:true});
 

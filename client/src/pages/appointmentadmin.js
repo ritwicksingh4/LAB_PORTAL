@@ -17,11 +17,9 @@ const AdminAppointments = () => {
       });
       if (res.data.success) {
         setApp(res.data.data);
-        console.log("here")
       }
     } catch (error) {
       console.log(error);
-      console.log("error")
     }
   };
 

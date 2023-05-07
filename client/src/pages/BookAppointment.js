@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Layout from "../components/Layout";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { DatePicker, message, TimePicker } from "antd";
 import moment from "moment";
 import { useDispatch } from "react-redux";
@@ -16,7 +16,6 @@ const BookAppointment = () => {
     const [isAvailable, setIsAvailable] = useState();
     const dispatch = useDispatch();
     const params = useParams();
-    const navigate = useNavigate();
     // login user data
     const getUserData = async () => {
         try {
@@ -28,14 +27,10 @@ const BookAppointment = () => {
                 },
                 body: {
                     machineId: machineId,
-                    fromTime,
-                    toTime,
-                    date
                 },
             });
             if (res.data.success) {
-                setMachine(res.data.data[0]);
-                // console.log(res.data.data[0])
+                setMachine(res.data.data);
             }
         } catch (error) {
             console.log(error);
@@ -49,7 +44,6 @@ const BookAppointment = () => {
     const handleAvailability = async () => {
         try {
             dispatch(showLoading());
-            console.log(date,fromTime,toTime)
             const res = await axios.post(
                 "/api/v1/user/booking-availbility",
                 { machineId: params.machineId, date, fromTime, toTime },
@@ -75,10 +69,6 @@ const BookAppointment = () => {
         }
     };
 
-    const handleBooking = async() => {
-        navigate('/applyformachine')
-    }
-
     return (
         <Layout>
             <div className="center">
@@ -87,31 +77,31 @@ const BookAppointment = () => {
             <div className="container m-2">
                 {machine && (
                     <div>
-                        <h4>Machine : {machine?.name}</h4>
+                        <h4>Machine : {machine.name}</h4>
+                        <h4>Fees : {machine.fees}</h4>
 
                         <div className="d-flex flex-column w-50">
                             <DatePicker
                                 aria-required={"true"}
-                                format="YYYY-MM-DD"
-                                onChange={(value,timestring) => {
-                                    setDate(timestring);
+                                format="DD-MM-YYYY"
+                                onChange={(value) => {
+                                    setDate(moment(value).format("DD-MM-YYYY"));
                                 }}
                             />
                             <TimePicker
                                 aria-required={"true"}
                                 format="HH:mm"
                                 className="mt-3"
-                                onChange={(value,timestring) => {
-                                    // console.log(moment(value).format("HH:mm"),"Here",timestring)
-                                    setFromTime(timestring);
+                                onChange={(value) => {
+                                    setFromTime(moment(value).format("HH:mm"));
                                 }}
                             />
                             <TimePicker
                                 aria-required={"true"}
                                 format="HH:mm"
                                 className="mt-3"
-                                onChange={(value,timestring) => {
-                                    setToTime(timestring);
+                                onChange={(value) => {
+                                    setToTime(moment(value).format("HH:mm"));
                                 }}
                             />
 
@@ -126,7 +116,7 @@ const BookAppointment = () => {
 
                             <button
                                 className="btn btn-primary mt-2"
-                                onClick={handleBooking}
+                                // onClick={handleBooking}
                             >
                                 Book Now
                             </button>

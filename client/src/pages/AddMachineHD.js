@@ -15,7 +15,6 @@ const AddMachineHD = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const state = useSelector((state)=>state.machine)
-  const state1= useSelector((state)=>state.user)
   const [machine,setMachine] = useState(state.machine)
   
 useEffect(()=>{
@@ -31,8 +30,7 @@ useEffect(()=>{
       arr1.push(item.task)
     })
     ////////// TA
-    const userId = state1.user._id
-    const payload = {...machine,holidays:arr1,userId}
+    const payload = {...machine,holidays:arr1}
     console.log(payload,"line 34 pay")
     ////////
     console.log(arr1,"arr1")

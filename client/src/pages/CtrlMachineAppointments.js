@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { message, Table } from "antd";
@@ -8,52 +6,34 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const CtrlMachineAppointments = () => {
-
-  const [app, setApp] = useState([]);
-  const state = useSelector((state)=>state.user)
-  const navigate = useNavigate()
-
-  //getUsers
-  const getApp = async () => {
-    try {
-      const machines = state.user.machine
-      const res = await axios.post("/api/v1/controller/getAllApps", {machines} , {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
-      if (res.data.success) {
-        setApp(res.data.data);
-        console.log("here")
-      }
-    } catch (error) {
-      console.log(error);
-      console.log("error")
-    }
-  };
+    const [app, setApp] = useState([]);
+    const state = useSelector((state) => state.user);
+    const navigate = useNavigate();
 
     //getUsers
-    // const getApp = async () => {
-    //     try {
-    //         const machines = state.user.machine;
-    //         const res = await axios.post(
-    //             "/api/v1/controller/getAllApps",
-    //             { machines },
-    //             {
-    //                 headers: {
-    //                     Authorization: `Bearer ${localStorage.getItem(
-    //                         "token"
-    //                     )}`,
-    //                 },
-    //             }
-    //         );
-    //         if (res.data.success) {
-    //             setApp(res.data.data);
-    //         }
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // };
+    const getApp = async () => {
+        try {
+            const machines = state.user.machine;
+            const res = await axios.post(
+                "/api/v1/controller/getAllApps",
+                { machines },
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem(
+                            "token"
+                        )}`,
+                    },
+                }
+            );
+            if (res.data.success) {
+                setApp(res.data.data);
+                console.log("here");
+            }
+        } catch (error) {
+            console.log(error);
+            console.log("error");
+        }
+    };
 
     const details = async (record) => {
         // console.log(record)
