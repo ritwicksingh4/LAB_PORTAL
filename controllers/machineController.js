@@ -4,6 +4,8 @@ const applyMachineModel = require('../models/machineApplication');
 const userModel = require('../models/userModels')
 const machineApplicationModel = require("../models/machineApplication");
 const moment = require("moment");
+const fs= require('fs');
+const path= require('path');
 
 const addMachineController = async (req, res) => {
     try {
@@ -290,7 +292,31 @@ const applyForMachine = async (req, res) => {
         //   typeofop:machine[0].typeofop,
         //   userId:req.body.userID,
         // }
-        const appl = { ...req.body };
+
+// for img
+// var obj = {
+//     name: req.body.name,
+//     desc: req.body.desc,
+//     img: {
+//         data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+//         contentType: 'image/png'
+//     }
+// }
+// imgSchema.create(obj)
+// .then ((err, item) => {
+//     if (err) {
+//         console.log(err);
+//     }
+//     else {
+//         // item.save();
+//         res.redirect('/');
+//     }
+// });
+//
+
+        const appl = { 
+            ...req.body,
+        };
         // console.log(appl);
         // console.log('here')
         const existingapplication = await applyMachineModel.findOne({
@@ -437,24 +463,34 @@ const editMachineController = async (req, res) => {
 
 const bookingAvailabilityController = async (req, res) => {
     try {
-        const date = moment(req.body.date, "DD-MM-YY").toISOString();
-        const fromTime = moment(req.body.time, "HH:mm")
-            .subtract(1, "hours")
-            .toISOString();
-        const toTime = moment(req.body.time, "HH:mm")
-            .add(1, "hours")
-            .toISOString();
+        // const date = moment(req.body.date, "DD-MM-YY").toISOString();
+        // const fromTime = moment(req.body.time, "HH:mm")
+        //     .subtract(1, "hours")
+        //     .toISOString();
+        // const toTime = moment(req.body.time, "HH:mm")
+        //     .add(1, "hours")
+        //     .toISOString();
+        const date=req.body.date;
+        const fromTime=req.body.fromTime;
+        const toTime=req.body.toTime;
         const machineId = req.body.machineId;
-        const appointments = await machineApplicationModel.find({
+        const appointments1 = await machineApplicationModel.find({
             machineId,
             date,
-            from: { $gte: fromTime },
-            to: { $lte: toTime },
+            from: { $lte: toTime},
+            to: { $gte: toTime },
         });
-        if (appointments.length > 0) {
+        const appointments2 = await machineApplicationModel.find({
+            machineId,
+            date,
+            from: { $lte: fromTime},
+            to: { $gte: fromTime },
+        });
+        console.log(date,fromTime,toTime,machineId)
+        if (appointments1.length > 0 || appointments2.length > 0) {
             return res.status(200).send({
                 message: "Appointments not Availibale at this time",
-                success: true,
+                success: false,
             });
         } else {
             return res.status(200).send({
