@@ -23,10 +23,11 @@ const Payment = () => {
   const [hr,sethr] = useState(0);
   const [gt,setgt] = useState(0);
   const [tpr,settpr] = useState(0);
+  const [file,setFile] = useState(null);
   // var sd = [];
 
   const machId = params.machineId
-  console.log(machId)
+  // console.log(machId)
 
   const getBillAmount = async()=>{
     try {
@@ -36,11 +37,23 @@ const Payment = () => {
       const res = await axios.post("/api/v1/user/getbillamount",payload)
       // dispatch(hideLoading());
       // sd=res.data.sds;
-      sethr(applym.to-applym.from)
-      setpr(res.data.sds*(hr))
-      setgt(0.18*pr)
-      settpr(gt+pr)
-      // console.log(sd);
+      console.log(applym.to,applym.from)
+      const d1= new Date()
+      const d2= new Date()
+      const sp1=applym.from.split(':');
+      const sp2=applym.to.split(':');
+      d1.setHours(sp1[0],sp1[1],sp1[2],0)
+      d2.setHours(sp2[0],sp2[1],sp2[2],0)
+      const nm=Number(sp2[0]-sp1[0]);
+      console.log(sp1,sp2)
+      sethr(nm)
+      const ans=(Number(res.data.sds))*(nm);
+      setpr(ans)
+      const fl=0.18*ans
+      setgt(fl)
+      const sm=ans+fl
+      settpr(sm)
+      console.log(tpr,pr,gt,sm,ans,fl);
       // setsd(res.sds)
     } catch (error) {
       // dispatch(hideLoading());
@@ -52,6 +65,8 @@ const Payment = () => {
   useEffect(()=>{
     getBillAmount();
   },[])
+
+  console.log(tpr,pr,gt);
 
   const handleFinish = async(values)=>{
     // console.log(params.machineId);
@@ -80,6 +95,11 @@ const Payment = () => {
     //  });
   }
 
+  const handlechange = async(event)=>{
+    const fl=event.target.files[0];
+    setFile(fl);
+  }
+
   return (
     <Layout>
         <h2 className='text-center'>Payment</h2>
@@ -87,7 +107,7 @@ const Payment = () => {
             <h5>Bill :</h5>
           <Row gutter={20}>
             <Col xs={24} md={24} lg={8}>
-              <Form.Item label='Total Usage Hpurs' name='hours' >
+              <Form.Item label='Total Usage Hours' name='hours' >
                 <Input type='text' placeholder={hr} disabled={true}/>
               </Form.Item>
             </Col>
@@ -112,7 +132,8 @@ const Payment = () => {
 
           <h4>Payment Link : link</h4>
           <Row>
-          <Col><Upload {...{name: 'file',
+          <Col>
+          {/* <Upload {...{name: 'file',
   action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
   headers: {
     authorization: 'authorization-text',
@@ -120,6 +141,7 @@ const Payment = () => {
   onChange(info) {
     if (info.file.status !== 'uploading') {
       console.log(info.file, info.fileList);
+      setFile(info.file);
     }
     if (info.file.status === 'done') {
       message.success(`${info.file.name} file uploaded successfully`);
@@ -128,7 +150,12 @@ const Payment = () => {
     }
           }}}>
     <Button icon={<UploadOutlined />}>Upload payment screenshot</Button>
-  </Upload></Col>
+  </Upload> */}
+      <div>
+              <label for="image">Upload Image</label>
+              <input type="file" id="image" name="image" value='' onChange={handlechange} />
+      </div>
+    </Col>
         </Row>
           <div className='d-flex justify-content-center'>
             <button className='btn btn-primary'>Apply</button>

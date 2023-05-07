@@ -3,6 +3,9 @@ const colors = require('colors')
 const morgan = require('morgan')
 const dotenv = require('dotenv')
 const connectDB = require('./config/db')
+var fs = require('fs');
+var path = require('path');
+var bodyParser = require('body-parser');
 
 //dotenv config
 dotenv.config()
@@ -16,6 +19,8 @@ const app = express()
 //middlewares
 app.use(express.json())
 app.use(morgan('dev'))
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 
 //routes
 app.use("/api/v1/user",require("./routes/userRoutes"));

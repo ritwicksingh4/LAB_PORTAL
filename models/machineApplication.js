@@ -70,6 +70,11 @@ const machineApplicationSchema = new mongoose.Schema({
     },
     machineId:{
         type:String
+    },
+    img:
+    {
+        data: Buffer,
+        contentType: String
     }
 },{timestamps:true});
 
