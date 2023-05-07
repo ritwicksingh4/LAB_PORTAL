@@ -122,7 +122,7 @@ const ApplyforMachineDetails = () => {
             <Row gutter={20}>
             <Col xs={24} md={24} lg={8}>
               <Form.Item label='Date' name='date' required rules={[{required:true}]}>
-                <Input type='text' placeholder='Enter date'/>
+                <Input type='date' placeholder='Enter date'/>
               </Form.Item>
             </Col>
           </Row>
@@ -130,12 +130,12 @@ const ApplyforMachineDetails = () => {
           <Row gutter={20}>
             <Col xs={24} md={24} lg={8}>
               <Form.Item label='From' name='from' required rules={[{required:true}]}>
-                <Input type='text' placeholder='Enter start time'/>
+                <Input type='time' placeholder='Enter start time'/>
               </Form.Item>
             </Col>
             <Col xs={24} md={24} lg={8}>
               <Form.Item label='To' name='to' required rules={[{required:true}]}>
-                <Input type='text' placeholder='Enter end time'/>
+                <Input type='time' placeholder='Enter end time'/>
               </Form.Item>
             </Col>
           </Row>
