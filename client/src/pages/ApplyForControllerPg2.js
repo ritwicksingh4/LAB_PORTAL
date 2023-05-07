@@ -10,7 +10,6 @@ const ApplyForControllerPg2 = () => {
     const [Equipments, setEquipments] = useState([]);
 
     const { machineType } = useParams();
-    // console.log(machineType);
     const getUserData = async () => {
         try {
             const res = await axios.post("/api/v1/user/getmachinesbytype", {

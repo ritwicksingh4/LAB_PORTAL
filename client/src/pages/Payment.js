@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from 'react'
-import Layout from './../components/Layout'
-import '../styles/addmachine.css'
-import { Col, Form, Input, Row , message , Button ,Upload} from 'antd'
-import { UploadOutlined } from '@ant-design/icons';
-import { TodoWrapper } from '../components/sampledetails/TodoWrapper'
-import { useNavigate, useParams } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import { submit1 } from '../redux/features/machineSlice'
-import { submitapm } from '../redux/features/applyMachineSlice'
-import axios from 'axios'
-import { hideLoading, showLoading } from '../redux/features/alertSlice'
+import React, { useEffect, useState } from "react";
+import Layout from "./../components/Layout";
+import "../styles/addmachine.css";
+import { Col, Form, Input, Row, message, Button, Upload } from "antd";
+import { UploadOutlined } from "@ant-design/icons";
+import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { submitapm } from "../redux/features/applyMachineSlice";
+import axios from "axios";
+import { hideLoading, showLoading } from "../redux/features/alertSlice";
+import FileBase64 from "react-file-base64";
 
 const Payment = () => {
   //handle form
@@ -61,108 +60,115 @@ const Payment = () => {
     }
   }
 
-  
-  useEffect(()=>{
-    getBillAmount();
-  },[])
+    useEffect(() => {
+        getBillAmount();
+    }, []);
 
-  console.log(tpr,pr,gt);
+    const convertToBase64 = (e) => {
+        var reader = new FileReader();
+        reader.readAsDataURL(e.target.files[0]);
+        reader.onload = () => {
+            setFile(reader.result);
+        };
+        reader.onerror = (error) => {
+            console.log("Error: ", error);
+        };
+    };
+    const handleFinish = async () => {
+        var payload = { ...applym, machineId: machId, photo: file };
 
-  const handleFinish = async(values)=>{
-    // console.log(params.machineId);
 
-    // const machId=params.machineId;
+        try {
+            dispatch(showLoading());
+            const res = await axios.post(
+                "/api/v1/user/applyformachine",
+                payload
+            );
+            console.log(res);
+            dispatch(hideLoading());
+            message.success("Successfully Applied for Machine");
+            dispatch(submitapm());
+        } catch (error) {
+            console.log(error);
+            dispatch(hideLoading());
+            console.log(error);
+        }
 
-    // const userID=User.user._id;
-    // console.log(User.user);
-    const payload = {...applym,machineId:machId};
-    // console.log(payload);
-    try {
-        dispatch(showLoading());
-        const res = await axios.post("/api/v1/user/applyformachine",payload)
-        dispatch(hideLoading());
-        message.success('Succesfully Applied for Machine')
-        dispatch(submitapm())
-      } catch (error) {
-        dispatch(hideLoading());
-        console.log(error);
-      }
+        navigate("/");
+    };
 
-    navigate('/');
-    // props.history.push({ 
-    //   pathname: '/payment',
-    //   state: payload
-    //  });
-  }
+    return (
+        <Layout>
+            <h2 className="text-center">Payment</h2>
+            <Form layout="vertical" onFinish={handleFinish} className="m-3">
+                <h5>Bill :</h5>
+                <Row gutter={20}>
+                    <Col xs={24} md={24} lg={8}>
+                        <Form.Item label="Total Usage Hpurs" name="hours">
+                            <Input
+                                type="text"
+                                placeholder={hr}
+                                disabled={true}
+                            />
+                        </Form.Item>
+                    </Col>
+                </Row>
+                <Row gutter={20}>
+                    <Col xs={24} md={24} lg={8}>
+                        <Form.Item label="Total Price" name="price">
+                            <Input
+                                type="text"
+                                placeholder={pr}
+                                disabled={true}
+                            />
+                        </Form.Item>
+                    </Col>
+                    <Col xs={24} md={24} lg={8}>
+                        <Form.Item label="18% GST" name="gst">
+                            <Input
+                                type="text"
+                                placeholder={gt}
+                                disabled={true}
+                            />
+                        </Form.Item>
+                    </Col>
+                    <Col xs={24} md={24} lg={8}>
+                        <Form.Item label="Total" name="total">
+                            <Input
+                                type="text"
+                                placeholder={tpr}
+                                disabled={true}
+                            />
+                        </Form.Item>
+                    </Col>
+                </Row>
+                <h4>Payment Link : link</h4>
+                <Row>
+                    <Col>
+                        <Form.Item
+                            label="Upload payment screenshot"
+                            name="screenshot"
+                        >
+                            <input
+                                accept="image/*"
+                                type="file"
+                                onChange={convertToBase64}
+                            />
+                            {file == "" || file == null ? (
+                                ""
+                            ) : (
+                                <img widht={100} height={100} src={file} />
+                            )}
+                        </Form.Item>
+                    </Col>
+                </Row>
+                <div className="d-flex justify-content-center">
+                    <button className="btn btn-primary">Apply</button>
+                </div>
+            </Form>
+        </Layout>
+    );
+};
 
-  const handlechange = async(event)=>{
-    const fl=event.target.files[0];
-    setFile(fl);
-  }
+export default Payment;
 
-  return (
-    <Layout>
-        <h2 className='text-center'>Payment</h2>
-        <Form layout='vertical' onFinish={handleFinish} className='m-3'>
-            <h5>Bill :</h5>
-          <Row gutter={20}>
-            <Col xs={24} md={24} lg={8}>
-              <Form.Item label='Total Usage Hours' name='hours' >
-                <Input type='text' placeholder={hr} disabled={true}/>
-              </Form.Item>
-            </Col>
-          </Row>
-          <Row gutter={20}>
-            <Col xs={24} md={24} lg={8}>
-              <Form.Item label='Total Price' name='price' >
-                <Input type='text' placeholder={pr} disabled={true}/>
-              </Form.Item>
-            </Col>
-            <Col xs={24} md={24} lg={8}>
-              <Form.Item label='18% GST' name='gst' >
-                <Input type='text' placeholder={gt} disabled={true}/>
-              </Form.Item>
-            </Col>
-            <Col xs={24} md={24} lg={8}>
-              <Form.Item label='Total' name='total'>
-                <Input type='text' placeholder={tpr} disabled={true}/>
-              </Form.Item>
-            </Col>
-          </Row>
-
-          <h4>Payment Link : link</h4>
-          <Row>
-          <Col>
-          {/* <Upload {...{name: 'file',
-  action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
-  headers: {
-    authorization: 'authorization-text',
-  },
-  onChange(info) {
-    if (info.file.status !== 'uploading') {
-      console.log(info.file, info.fileList);
-      setFile(info.file);
-    }
-    if (info.file.status === 'done') {
-      message.success(`${info.file.name} file uploaded successfully`);
-    } else if (info.file.status === 'error') {
-      message.error(`${info.file.name} file upload failed.`);
-    }
-          }}}>
-    <Button icon={<UploadOutlined />}>Upload payment screenshot</Button>
-  </Upload> */}
-      <div>
-              <label for="image">Upload Image</label>
-              <input type="file" id="image" name="image" value='' onChange={handlechange} />
-      </div>
-    </Col>
-        </Row>
-          <div className='d-flex justify-content-center'>
-            <button className='btn btn-primary'>Apply</button>
-          </div>
-        </Form>
-    </Layout>
-  )
-}
-
-export default Payment
