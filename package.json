@@ -10,7 +10,7 @@
     "client": "npm start --prefix ./client ",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
-  "NODE_VERSION" : "16.14.2",
+  "NODE_VERSION": "16.14.2",
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -28,6 +28,7 @@
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
     "nodemon": "^2.0.22",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "react-file-base64": "^1.0.3"
   }
 }
