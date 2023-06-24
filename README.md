@@ -15,7 +15,7 @@ https://mechanical-engineering-lab-portal.onrender.com/login
 
 **For Frontend** - `cd frontend` ` npm i`
 
-**For Running The App** - 'npm run dev'
+**For Running The App** - `npm run dev`
 
 ## Env Variables
 
